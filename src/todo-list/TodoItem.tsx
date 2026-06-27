@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Todo } from '../interfaces/todo';
 import { formatDateTime } from '../utils/formatDateTime';
+import { ConfirmDialog } from './ConfirmDialog';
 import styles from './TodoItem.module.css';
 
 interface TodoItemProps {
@@ -9,56 +11,74 @@ interface TodoItemProps {
 }
 
 export const TodoItem = ({ todo, onDeleteTodo, onToggleTodo }: TodoItemProps) => {
-  return (
-    <li className={`${styles.item} ${todo.done ? styles.itemDone : ''}`}>
-      <div
-        className={styles.content}
-        onClick={() => onToggleTodo(todo)}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            onToggleTodo(todo);
-          }
-        }}
-        aria-label={todo.done ? 'Marcar como pendiente' : 'Marcar como completada'}
-      >
-        <span
-          className={`${styles.checkbox} ${todo.done ? styles.checkboxChecked : ''}`}
-          aria-hidden="true"
-        >
-          {todo.done ? '✓' : ''}
-        </span>
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
-        <div className={styles.details}>
+  const handleConfirmDelete = () => {
+    onDeleteTodo(todo);
+    setShowConfirmDelete(false);
+  };
+
+  return (
+    <>
+      <li className={`${styles.item} ${todo.done ? styles.itemDone : ''}`}>
+        <div
+          className={styles.content}
+          onClick={() => onToggleTodo(todo)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              onToggleTodo(todo);
+            }
+          }}
+          aria-label={todo.done ? 'Marcar como pendiente' : 'Marcar como completada'}
+        >
           <span
-            className={`${styles.description} ${todo.done ? styles.descriptionDone : ''}`}
+            className={`${styles.checkbox} ${todo.done ? styles.checkboxChecked : ''}`}
+            aria-hidden="true"
           >
-            {todo.description}
+            {todo.done ? '✓' : ''}
           </span>
 
-          <div className={styles.meta}>
-            <span className={styles.metaItem}>
-              Creada: {formatDateTime(todo.createdAt)}
+          <div className={styles.details}>
+            <span
+              className={`${styles.description} ${todo.done ? styles.descriptionDone : ''}`}
+            >
+              {todo.description}
             </span>
-            {todo.completedAt !== null && (
-              <span className={`${styles.metaItem} ${styles.metaCompleted}`}>
-                Finalizada: {formatDateTime(todo.completedAt)}
+
+            <div className={styles.meta}>
+              <span className={styles.metaItem}>
+                Creada: {formatDateTime(todo.createdAt)}
               </span>
-            )}
+              {todo.completedAt !== null && (
+                <span className={`${styles.metaItem} ${styles.metaCompleted}`}>
+                  Finalizada: {formatDateTime(todo.completedAt)}
+                </span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      <button
-        type="button"
-        className={styles.deleteButton}
-        onClick={() => onDeleteTodo(todo)}
-        aria-label={`Eliminar tarea: ${todo.description}`}
-      >
-        Eliminar
-      </button>
-    </li>
+        <button
+          type="button"
+          className={styles.deleteButton}
+          onClick={() => setShowConfirmDelete(true)}
+          aria-label={`Eliminar tarea: ${todo.description}`}
+        >
+          Eliminar
+        </button>
+      </li>
+
+      {showConfirmDelete && (
+        <ConfirmDialog
+          title="Eliminar tarea"
+          message={`¿Seguro que deseas eliminar "${todo.description}"? Esta acción no se puede deshacer.`}
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setShowConfirmDelete(false)}
+        />
+      )}
+    </>
   );
 };

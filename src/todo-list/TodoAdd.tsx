@@ -38,9 +38,6 @@ export const TodoAdd = ({ onNewTodo }: TodoAddProps) => {
 
       <form className={styles.form} onSubmit={onFormSubmit}>
         <div className={styles.fieldGroup}>
-          <label className={styles.label} htmlFor="todo-description">
-            Descripción
-          </label>
           <div className={styles.inputRow}>
             <input
               id="todo-description"
@@ -51,6 +48,7 @@ export const TodoAdd = ({ onNewTodo }: TodoAddProps) => {
               value={description}
               onChange={onInputChange}
               autoComplete="off"
+              aria-label="Descripción de la tarea"
             />
             <button
               type="submit"
