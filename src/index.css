@@ -1,12 +1,46 @@
+@import './styles/tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 20px;
-  /* background-image: linear-gradient(45deg, #e37682 15%, #5f4d93 85%); */
-}
-
-button {
-  margin-left: 20px;
-}
-
-input {
   margin: 10px;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  background-color: var(--color-shell-mid);
+  background-image: linear-gradient(
+    45deg,
+    var(--color-shell-gradient-start) 15%,
+    var(--color-shell-gradient-end) 85%
+  );
+}
+
+#root {
+  min-height: calc(100vh - 20px);
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-focus-ring-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

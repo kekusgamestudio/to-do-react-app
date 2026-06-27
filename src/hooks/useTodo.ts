@@ -1,56 +1,61 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 import { todoReducer } from '../todo-list/TodoReducer';
 import { Todo } from '../interfaces/todo';
+import { normalizeTodo, sortTodosByCreatedDesc } from '../utils/normalizeTodo';
 
+const init = (): Todo[] => {
+  const stored = localStorage.getItem('todos');
+  if (!stored) return [];
 
-const init = () => {
-  return JSON.parse(localStorage.getItem('todos') || '') || [];
-}
+  try {
+    const parsed = JSON.parse(stored) as Todo[];
+    return parsed.map(normalizeTodo);
+  } catch {
+    return [];
+  }
+};
 
 export const useTodo = () => {
+  const [todos, dispatch] = useReducer(todoReducer, [], init);
 
-  // State of de TODO list
-  const [todos, dispatch] = useReducer(todoReducer, [], init );
-
-  // Local storage update
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  }, [ todos ])
-  
-  const handleNewTodo = ( todo:Todo ) => {
-    //console.log({ todo });
-    const action = {
+  }, [todos]);
+
+  const sortedTodos = useMemo(
+    () => sortTodosByCreatedDesc(todos),
+    [todos],
+  );
+
+  const handleNewTodo = (todo: Todo) => {
+    dispatch({
       type: '[TODO] Add Todo',
       payload: todo,
-    }
-    dispatch( action );
-  }
+    });
+  };
 
-  const handleDeleteTodo = ( todo:Todo ) => {
+  const handleDeleteTodo = (todo: Todo) => {
     dispatch({
       type: '[TODO] Remove Todo',
       payload: todo,
     });
-  }
+  };
 
-  const handleToggleTodo = ( todo:Todo ) => {
+  const handleToggleTodo = (todo: Todo) => {
     dispatch({
       type: '[TODO] Toggle Todo',
       payload: todo,
     });
-  }
+  };
 
-  const getPendingCount = () => {
-    return todos.filter((todo:Todo) => !todo.done).length
-  }
+  const pendingTodosCount = todos.filter((todo) => !todo.done).length;
 
   return {
-    todos,
+    todos: sortedTodos,
     todosCount: todos.length,
-    pendingTodosCount: getPendingCount(),
+    pendingTodosCount,
     handleDeleteTodo,
     handleToggleTodo,
     handleNewTodo,
-  }
-
-}
+  };
+};

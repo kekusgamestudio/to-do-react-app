@@ -1,40 +1,67 @@
+import { FormEvent } from 'react';
 import { useForm } from '../hooks/useForm';
+import { Todo } from '../interfaces/todo';
+import styles from './TodoAdd.module.css';
 
-export const TodoAdd = ({ onNewTodo }) => {
+interface TodoAddProps {
+  onNewTodo: (todo: Todo) => void;
+}
 
+export const TodoAdd = ({ onNewTodo }: TodoAddProps) => {
   const { description, onInputChange, onFormReset } = useForm({
     description: '',
-  })
+  });
 
-  const onFormSubmit = ( event ) => {
+  const isValid = description.trim().length > 1;
+
+  const onFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if ( description.length <= 1 ) return;
+    if (!isValid) return;
 
-    const newTodo = {
-      id: new Date().getTime(),
+    const now = Date.now();
+
+    const newTodo: Todo = {
+      id: now,
       done: false,
-      description,
-    }
+      description: description.trim(),
+      createdAt: now,
+      completedAt: null,
+    };
+
     onNewTodo(newTodo);
     onFormReset();
-  }
+  };
 
   return (
-    <form onSubmit={ onFormSubmit }>
-      <input 
-        type="text" 
-        placeholder='¿Qué tenemos que hacer?' 
-        className='form-control'
-        name='description'
-        value={ description }
-        onChange={ onInputChange }
-      />
-      <button 
-        type='submit' 
-        className='btn btn-outline-primary mt-1'
-      >
-        Agregar
-      </button>
-    </form>
-  )
-}
+    <div className={styles.addSection}>
+      <h3 className={styles.addTitle}>Agregar tarea</h3>
+
+      <form className={styles.form} onSubmit={onFormSubmit}>
+        <div className={styles.fieldGroup}>
+          <label className={styles.label} htmlFor="todo-description">
+            Descripción
+          </label>
+          <div className={styles.inputRow}>
+            <input
+              id="todo-description"
+              type="text"
+              placeholder="¿Qué tenemos que hacer?"
+              className={styles.input}
+              name="description"
+              value={description}
+              onChange={onInputChange}
+              autoComplete="off"
+            />
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={!isValid}
+            >
+              Agregar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};

@@ -1,12 +1,8 @@
 import { TodoList } from './TodoList';
-import { TodoAdd } from './TodoAdd';
-import { Todo } from '../interfaces/todo';
 import { useTodo } from '../hooks/useTodo';
+import styles from './TodoApp.module.css';
 
 export const TodoApp = () => {
-
-  const result = useTodo();
-
   const {
     todos,
     todosCount,
@@ -14,29 +10,42 @@ export const TodoApp = () => {
     handleDeleteTodo,
     handleToggleTodo,
     handleNewTodo,
-  } = result;
+  } = useTodo();
 
+  const completedCount = todosCount - pendingTodosCount;
 
   return (
-    <>
-      <h1>TODO App: { todosCount } <small>pendientes: { pendingTodosCount }</small></h1>
-      <hr />
-      <div className='row'>
-        <div className='col-7'>
-          <TodoList 
-            todos={ todos } 
-            onDeleteTodo={ (todo:Todo) => handleDeleteTodo(todo) }
-            onToggleTodo={ (todo:Todo) => handleToggleTodo(todo)}
-          />
+    <div className={styles.shell}>
+      <header className={styles.header}>
+        <h1 className={styles.headerTitle}>
+          <span className={styles.headerIcon} aria-hidden="true">✓</span>
+          Lista de tareas
+        </h1>
+        <div className={styles.stats}>
+          <span className={styles.statChip}>
+            Total <strong>{todosCount}</strong>
+          </span>
+          <span className={`${styles.statChip} ${styles.statChipPending}`}>
+            Pendientes <strong>{pendingTodosCount}</strong>
+          </span>
+          <span className={styles.statChip}>
+            Completadas <strong>{completedCount}</strong>
+          </span>
         </div>
-        <div className='col-5'>
-          <h4>Agregar TODO</h4>
-          <hr />
-          <TodoAdd 
-            onNewTodo={ (todo:Todo) => handleNewTodo(todo) }
-          />
-        </div>
-      </div>
-    </>
-  )
-}
+      </header>
+
+      <main className={styles.mainContainer}>
+        <TodoList
+          todos={todos}
+          onNewTodo={handleNewTodo}
+          onDeleteTodo={handleDeleteTodo}
+          onToggleTodo={handleToggleTodo}
+        />
+      </main>
+
+      <footer className={styles.footer}>
+        &copy; {new Date().getFullYear()} Kekus Development Studio
+      </footer>
+    </div>
+  );
+};

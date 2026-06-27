@@ -1,0 +1,104 @@
+.item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-detail);
+  background: var(--color-surface);
+  transition: all 0.2s var(--ease-standard);
+}
+
+.item:hover {
+  border-color: rgb(196, 201, 204);
+  background: var(--color-interactive-hover-bg);
+}
+
+.itemDone {
+  background: var(--color-surface-muted);
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-border-card);
+  border-radius: var(--radius-field);
+  background: var(--color-surface);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.checkboxChecked {
+  border-color: var(--color-success);
+  background: var(--color-success);
+  color: var(--color-text-on-dark);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.description {
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.descriptionDone {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+}
+
+.metaItem {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.metaCompleted {
+  color: var(--color-success);
+}
+
+.deleteButton {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border: 1px solid rgb(230, 160, 160);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-danger-soft);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.deleteButton:hover {
+  background: rgb(255, 236, 236);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}

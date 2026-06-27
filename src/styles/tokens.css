@@ -1,0 +1,76 @@
+/**
+ * Design tokens — alineados con procer-backoffice-site (Kira).
+ */
+
+:root {
+  --color-surface: #ffffff;
+  --color-surface-muted: rgb(245, 247, 250);
+  --color-surface-tint-blue: rgb(242, 248, 255);
+  --color-surface-panel-header: rgb(223, 230, 237);
+  --color-empty-state-bg: rgb(252, 252, 252);
+
+  --color-border: rgb(220, 220, 220);
+  --color-border-subtle: rgb(223, 228, 235);
+  --color-border-card: rgb(198, 208, 222);
+  --color-input-border: rgb(200, 200, 200);
+  --color-input-focus-border: rgb(120, 140, 190);
+  --color-popup-action-border: rgb(180, 180, 180);
+
+  --color-text: rgb(65, 65, 65);
+  --color-text-secondary: rgb(105, 105, 105);
+  --color-text-muted: rgb(118, 118, 118);
+  --color-text-emphasis: rgb(65, 65, 65);
+  --color-text-on-dark: #ffffff;
+
+  --color-accent: rgb(72, 92, 118);
+  --color-accent-strong: rgb(52, 88, 138);
+  --color-link-hover: rgb(8, 76, 144);
+  --color-interactive-hover-bg: rgb(248, 250, 253);
+  --color-interactive-selected-bg: rgb(236, 244, 255);
+  --color-heading-hover-blue: rgb(24, 69, 132);
+
+  --color-form-border: #d5d9d9;
+  --color-form-hover-bg: #f7fafa;
+  --color-form-focus-border: #008296;
+  --color-shadow-form-tint: rgba(213, 217, 217, 0.5);
+
+  --color-shell-mid: #935d8c;
+  --color-shell-gradient-start: #e37682;
+  --color-shell-gradient-end: #5f4d93;
+
+  --color-auth-primary: #1877f2;
+  --color-auth-primary-hover: #166fe5;
+  --color-focus-ring-bright: rgb(79, 170, 249);
+  --color-danger: rgb(190, 45, 45);
+  --color-danger-soft: rgb(176, 58, 58);
+  --color-success: rgb(44, 166, 111);
+  --color-success-bg: rgba(228, 246, 234, 0.85);
+  --color-success-border: rgb(118, 168, 138);
+
+  --shadow-panel: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 4px 16px rgba(35, 50, 72, 0.18);
+
+  --radius-field: 4px;
+  --radius-control: 10px;
+  --radius-detail: 13px;
+  --radius-card: 15px;
+  --radius-pill: 999px;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 10px;
+  --space-lg: 12px;
+  --space-xl: 14px;
+  --space-2xl: 18px;
+  --space-3xl: 20px;
+
+  --font-sans: 'Red Hat Display', Tahoma, Arial, Helvetica, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+
+  --duration-fast: 0.15s;
+  --ease-standard: ease;
+}
