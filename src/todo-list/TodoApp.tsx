@@ -10,6 +10,7 @@ export const TodoApp = () => {
     handleDeleteTodo,
     handleToggleTodo,
     handleNewTodo,
+    handleUpdateNote,
   } = useTodo();
 
   const completedCount = todosCount - pendingTodosCount;
@@ -40,6 +41,7 @@ export const TodoApp = () => {
           onNewTodo={handleNewTodo}
           onDeleteTodo={handleDeleteTodo}
           onToggleTodo={handleToggleTodo}
+          onUpdateNote={handleUpdateNote}
         />
       </main>
 

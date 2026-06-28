@@ -48,6 +48,13 @@ export const useTodo = () => {
     });
   };
 
+  const handleUpdateNote = (id: number, note: string) => {
+    dispatch({
+      type: '[TODO] Update Note',
+      payload: { id, note },
+    });
+  };
+
   const pendingTodosCount = todos.filter((todo) => !todo.done).length;
 
   return {
@@ -57,5 +64,6 @@ export const useTodo = () => {
     handleDeleteTodo,
     handleToggleTodo,
     handleNewTodo,
+    handleUpdateNote,
   };
 };

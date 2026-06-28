@@ -1,0 +1,105 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+  background-color: rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.dialog {
+  width: min(520px, 92vw);
+  padding: var(--space-3xl);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.title {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-emphasis);
+}
+
+.taskName {
+  margin: 0 0 var(--space-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  word-break: break-word;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-md);
+  border: 1px solid rgb(156, 163, 175);
+  border-radius: var(--radius-field);
+  font-family: inherit;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-surface);
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.textarea:focus {
+  border-color: var(--color-focus-ring-bright);
+  box-shadow: 0 0 0 1px var(--color-focus-ring-bright);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+}
+
+.cancelButton,
+.saveButton {
+  padding: 0 14px;
+  height: 2rem;
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.cancelButton {
+  border: 1px solid var(--color-form-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--color-shadow-form-tint) 0 2px 5px;
+}
+
+.cancelButton:hover {
+  background: var(--color-form-hover-bg);
+}
+
+.saveButton {
+  border: 1px solid rgb(138, 184, 221);
+  background: var(--color-surface);
+  color: var(--color-accent-strong);
+}
+
+.saveButton:hover {
+  background: var(--color-interactive-selected-bg);
+  border-color: var(--color-link-hover);
+  color: var(--color-link-hover);
+}

@@ -4,4 +4,5 @@ export interface Todo {
   description: string;
   createdAt: number;
   completedAt: number | null;
+  note: string;
 }

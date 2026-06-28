@@ -8,6 +8,7 @@ interface TodoListProps {
   onNewTodo: (todo: Todo) => void;
   onDeleteTodo: (todo: Todo) => void;
   onToggleTodo: (todo: Todo) => void;
+  onUpdateNote: (id: number, note: string) => void;
 }
 
 export const TodoList = ({
@@ -15,6 +16,7 @@ export const TodoList = ({
   onNewTodo,
   onDeleteTodo,
   onToggleTodo,
+  onUpdateNote,
 }: TodoListProps) => {
   return (
     <section className={styles.panel}>
@@ -41,6 +43,7 @@ export const TodoList = ({
               todo={todo}
               onDeleteTodo={onDeleteTodo}
               onToggleTodo={onToggleTodo}
+              onUpdateNote={onUpdateNote}
             />
           ))}
         </ul>

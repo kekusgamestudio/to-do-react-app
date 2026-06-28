@@ -24,6 +24,13 @@ export const todoReducer = (initialState: Todo[], action: Action) => {
         };
       });
 
+    case '[TODO] Update Note':
+      return initialState.map((todo: Todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, note: action.payload.note }
+          : todo,
+      );
+
     default:
       return initialState;
   }

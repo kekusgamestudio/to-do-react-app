@@ -2,20 +2,34 @@ import { useState } from 'react';
 import { Todo } from '../interfaces/todo';
 import { formatDateTime } from '../utils/formatDateTime';
 import { ConfirmDialog } from './ConfirmDialog';
+import { NoteDialog } from './NoteDialog';
 import styles from './TodoItem.module.css';
 
 interface TodoItemProps {
   todo: Todo;
   onDeleteTodo: (todo: Todo) => void;
   onToggleTodo: (todo: Todo) => void;
+  onUpdateNote: (id: number, note: string) => void;
 }
 
-export const TodoItem = ({ todo, onDeleteTodo, onToggleTodo }: TodoItemProps) => {
+export const TodoItem = ({
+  todo,
+  onDeleteTodo,
+  onToggleTodo,
+  onUpdateNote,
+}: TodoItemProps) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [showNoteDialog, setShowNoteDialog] = useState(false);
+  const hasNote = todo.note.trim().length > 0;
 
   const handleConfirmDelete = () => {
     onDeleteTodo(todo);
     setShowConfirmDelete(false);
+  };
+
+  const handleSaveNote = (note: string) => {
+    onUpdateNote(todo.id, note);
+    setShowNoteDialog(false);
   };
 
   return (
@@ -61,15 +75,34 @@ export const TodoItem = ({ todo, onDeleteTodo, onToggleTodo }: TodoItemProps) =>
           </div>
         </div>
 
-        <button
-          type="button"
-          className={styles.deleteButton}
-          onClick={() => setShowConfirmDelete(true)}
-          aria-label={`Eliminar tarea: ${todo.description}`}
-        >
-          Eliminar
-        </button>
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={`${styles.noteButton} ${hasNote ? styles.noteButtonActive : ''}`}
+            onClick={() => setShowNoteDialog(true)}
+            aria-label={`${hasNote ? 'Editar' : 'Agregar'} nota de la tarea: ${todo.description}`}
+          >
+            Nota
+          </button>
+          <button
+            type="button"
+            className={styles.deleteButton}
+            onClick={() => setShowConfirmDelete(true)}
+            aria-label={`Eliminar tarea: ${todo.description}`}
+          >
+            Eliminar
+          </button>
+        </div>
       </li>
+
+      {showNoteDialog && (
+        <NoteDialog
+          taskDescription={todo.description}
+          initialNote={todo.note}
+          onSave={handleSaveNote}
+          onCancel={() => setShowNoteDialog(false)}
+        />
+      )}
 
       {showConfirmDelete && (
         <ConfirmDialog

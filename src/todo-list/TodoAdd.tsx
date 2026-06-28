@@ -26,6 +26,7 @@ export const TodoAdd = ({ onNewTodo }: TodoAddProps) => {
       description: description.trim(),
       createdAt: now,
       completedAt: null,
+      note: '',
     };
 
     onNewTodo(newTodo);

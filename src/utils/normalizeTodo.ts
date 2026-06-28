@@ -7,7 +7,8 @@ export const normalizeTodo = (raw: StoredTodo): Todo => ({
   description: raw.description,
   done: raw.done,
   createdAt: raw.createdAt ?? raw.id,
-  completedAt: raw.completedAt ?? (raw.done ? raw.id : null),
+  completedAt: raw.completedAt ?? null,
+  note: raw.note ?? '',
 });
 
 export const sortTodosByCreatedDesc = (todos: Todo[]): Todo[] =>
